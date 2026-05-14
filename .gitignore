@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+Include/
+Lib/
+Scripts/
+Trade/
+pyvenv.cfg
+
+.venv/
+venv/
+env/
