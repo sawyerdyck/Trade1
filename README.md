@@ -39,6 +39,51 @@ Optional environment variables:
 - `YAHOO_RANGE` defaults to `6mo`
 - `ALPHAVANTAGE_OUTPUTSIZE` defaults to `compact`
 
+# Trade Analysis App
+
+Interactive stock prediction app - uses matplotlib, Yahoo Finance data, and a scikit-style linear regression model.
+
+This project fetches market price data from free Yahoo Finance data through `yfinance` by default, converts it into a time series, fits a simple linear trend, and plots the result.
+
+Screenshots are attached.
+
+## What Changed
+
+The original single-file script has been split into focused submodules under `trade_app/` so each part of the workflow is isolated and easier to maintain.
+
+## Project Flow
+
+1. Load runtime settings from environment variables.
+2. Request price data from `yfinance` (default), Stooq, Yahoo Finance, or Alpha Vantage.
+3. Parse the API response into timestamped price points.
+4. Convert the points into numeric vectors.
+5. Fit a linear trend line.
+6. Plot the raw series and trend line.
+
+## Setup
+
+Install the dependencies used by the app:
+
+```bash
+pip install requests numpy matplotlib yfinance
+```
+
+No API key is required for the default `yfinance` provider.
+
+If you want Alpha Vantage instead, set:
+
+```powershell
+$env:ALPHAVANTAGE_API_KEY="your_api_key"
+```
+
+Optional environment variables:
+
+- `STOCK_SYMBOL` defaults to `AAPL`
+- `STOCK_PROVIDER` defaults to `yfinance`
+- `STOCK_INTERVAL` defaults to `1d`
+- `YAHOO_RANGE` defaults to `6mo`
+- `ALPHAVANTAGE_OUTPUTSIZE` defaults to `compact`
+
 ## Run
 
 ```bash
