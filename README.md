@@ -1,6 +1,6 @@
 # Trade Analysis App
 
-This project fetches intraday price data from Alpha Vantage, converts it into a time series, fits a simple linear trend, and plots the result.
+This project fetches market price data from free Yahoo Finance data through `yfinance` by default, converts it into a time series, fits a simple linear trend, and plots the result.
 
 ## What Changed
 
@@ -9,7 +9,7 @@ The original single-file script has been split into focused submodules under `tr
 ## Project Flow
 
 1. Load runtime settings from environment variables.
-2. Request intraday data from Alpha Vantage.
+2. Request price data from `yfinance` (default), Stooq, Yahoo Finance, or Alpha Vantage.
 3. Parse the API response into timestamped price points.
 4. Convert the points into numeric vectors.
 5. Fit a linear trend line.
@@ -20,10 +20,12 @@ The original single-file script has been split into focused submodules under `tr
 Install the dependencies used by the app:
 
 ```bash
-pip install requests numpy matplotlib
+pip install requests numpy matplotlib yfinance
 ```
 
-Set the required Alpha Vantage key before running:
+No API key is required for the default `yfinance` provider.
+
+If you want Alpha Vantage instead, set:
 
 ```powershell
 $env:ALPHAVANTAGE_API_KEY="your_api_key"
@@ -31,8 +33,10 @@ $env:ALPHAVANTAGE_API_KEY="your_api_key"
 
 Optional environment variables:
 
-- `STOCK_SYMBOL` defaults to `BTC`
-- `STOCK_INTERVAL` defaults to `1min`
+- `STOCK_SYMBOL` defaults to `AAPL`
+- `STOCK_PROVIDER` defaults to `yfinance`
+- `STOCK_INTERVAL` defaults to `1d`
+- `YAHOO_RANGE` defaults to `6mo`
 - `ALPHAVANTAGE_OUTPUTSIZE` defaults to `compact`
 
 ## Run
@@ -78,7 +82,7 @@ python alphaVantageAPI.py backtest --window-size 20
 
 ## Notes
 
-- The app uses the open, intraday price field from Alpha Vantage.
-- If Alpha Vantage rate limits are hit, the client raises a clear error message.
+- By default, the app uses Yahoo Finance historical close prices through `yfinance`.
+- If Alpha Vantage is selected and rate limits are hit, the client raises a clear error message.
 - The pipeline currently produces a simple linear trend; it is a foundation for future predictive models.
 - The repository now ignores the local virtual environment folders and caches through `.gitignore`.
