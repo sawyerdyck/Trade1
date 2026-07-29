@@ -51,6 +51,9 @@ def main():
         days = 5
 
     data = fetch_stock_data(ticker) # gets all knwon data
+    if data.empty:
+        print(f"Error: No data found for ticker '{ticker}'. Check the symbol and try again.")
+        return
     future_dates, future_preds, model = predict_future_prices(data, days) #creates prediction
     plot_data(data, future_dates, future_preds, model) #plots all data
 
